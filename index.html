@@ -64,6 +64,7 @@
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
+      position: relative;
     }
 
     section {
@@ -111,13 +112,123 @@
     }
 
     /* ─────────────────────────────────────────
-       VIDEO
+       GRAIN OVERLAY
     ───────────────────────────────────────── */
-    video {
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
       width: 100%;
-      display: block;
-      background: #000;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
     }
+
+    /* ─────────────────────────────────────────
+       SCROLL ANIMATIONS
+    ───────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─────────────────────────────────────────
+       VIDEO THUMBNAIL
+    ───────────────────────────────────────── */
+    .video-thumb {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: #000;
+      aspect-ratio: 16 / 9;
+    }
+    .video-thumb__poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+    }
+    .video-thumb:hover .video-thumb__poster {
+      transform: scale(1.03);
+      opacity: 0.85;
+    }
+    .video-thumb__play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, background 0.25s ease;
+      color: #1c1917;
+    }
+    .video-thumb__play svg {
+      width: 24px;
+      height: 24px;
+      margin-left: 3px;
+    }
+    .video-thumb:hover .video-thumb__play {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: #ffffff;
+    }
+
+    /* ─────────────────────────────────────────
+       VIDEO MODAL
+    ───────────────────────────────────────── */
+    #video-modal {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      background: rgba(0,0,0,0.94);
+      border: none;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+    #video-modal::backdrop {
+      background: rgba(0,0,0,0.94);
+    }
+    #modal-video {
+      width: 90vw;
+      max-width: 1200px;
+      max-height: 85vh;
+      aspect-ratio: 16/9;
+      background: #000;
+      outline: none;
+    }
+    #modal-close {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s ease;
+      z-index: 1;
+    }
+    #modal-close:hover { color: #fff; }
 
     /* ─────────────────────────────────────────
        NAVIGATION
@@ -132,6 +243,7 @@
       background: var(--black);
       display: flex;
       align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
     }
 
     .nav__inner {
@@ -164,11 +276,25 @@
       text-transform: uppercase;
       color: var(--gray-300);
       transition: color 0.2s;
+      position: relative;
     }
 
     .nav__links a:hover {
       color: var(--white);
     }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--white);
+      transition: width 0.25s ease;
+    }
+
+    .nav__links a:hover::after { width: 100%; }
 
     /* ─────────────────────────────────────────
        HERO
@@ -190,13 +316,28 @@
       width: 100%;
     }
 
+    .hero__pre {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .hero__pre::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gray-500);
+    }
+
     .hero__label {
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--gray-500);
-      margin-bottom: 48px;
+      margin-bottom: 0;
     }
 
     .hero__name {
@@ -279,12 +420,35 @@
       background: var(--white);
     }
 
+    /* Background case numbers */
+    .case-bg-num {
+      position: absolute;
+      top: -20px;
+      right: 40px;
+      font-size: clamp(120px, 18vw, 220px);
+      font-weight: 900;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.05em;
+      z-index: 0;
+    }
+
+    .case--white .case-bg-num,
+    .case--light-gray .case-bg-num {
+      -webkit-text-stroke: 1px rgba(0,0,0,0.05);
+    }
+
     /* 2-column header row */
     .case-header {
       display: flex;
       gap: 80px;
       align-items: flex-start;
       margin-bottom: 80px;
+      position: relative;
+      z-index: 1;
     }
 
     .case-header__left {
@@ -293,6 +457,13 @@
 
     .case-header__right {
       flex: 0 0 calc(40% - 80px);
+      border-left: 1px solid rgba(255,255,255,0.1);
+      padding-left: 40px;
+    }
+
+    .case--white .case-header__right,
+    .case--light-gray .case-header__right {
+      border-left: 1px solid var(--gray-300);
     }
 
     .case-headline {
@@ -357,17 +528,12 @@
     ───────────────────────────────────────── */
     .media-block {
       margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
     }
 
     .media-block:last-child {
       margin-bottom: 0;
-    }
-
-    .main-video {
-      width: 100%;
-      height: 700px;
-      object-fit: cover;
-      background: #000;
     }
 
     .hub-image {
@@ -379,6 +545,8 @@
     /* ─── Lafayette Hub live embed ─── */
     .hub-block {
       margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
     }
 
     .hub-label-row {
@@ -474,11 +642,8 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
-    }
-
-    .video-item video {
-      height: 420px;
-      object-fit: cover;
+      position: relative;
+      z-index: 1;
     }
 
     /* ─────────────────────────────────────────
@@ -537,6 +702,32 @@
       aspect-ratio: 4 / 3;
       object-fit: cover;
       display: block;
+    }
+
+    /* Photo hover reveal */
+    .photo-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .photo-item img {
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-item:hover img {
+      transform: scale(1.04);
+    }
+    .photo-item__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .photo-item:hover .photo-item__overlay {
+      opacity: 1;
     }
 
     /* ─────────────────────────────────────────
@@ -613,6 +804,19 @@
         width: 100%;
       }
 
+      .case-header__right {
+        border-left: none;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-left: 0;
+        padding-top: 32px;
+      }
+
+      .case--white .case-header__right,
+      .case--light-gray .case-header__right {
+        border-left: none;
+        border-top: 1px solid var(--gray-300);
+      }
+
       .video-grid {
         grid-template-columns: 1fr;
       }
@@ -625,16 +829,12 @@
         columns: 1;
       }
 
-      .main-video {
-        height: auto;
-      }
-
-      .video-item video {
-        height: auto;
-      }
-
       .nav__links {
         gap: 24px;
+      }
+
+      .case-bg-num {
+        display: none;
       }
     }
   </style>
@@ -662,7 +862,9 @@
   ════════════════════════════════════════ -->
   <section class="hero" aria-label="Hero">
     <div class="hero__inner">
-      <p class="hero__label">Brand &amp; Communications Leader</p>
+      <div class="hero__pre">
+        <p class="hero__label">Brand &amp; Communications Leader</p>
+      </div>
       <h1 class="hero__name">
         Sebastian<br>Acevedo
       </h1>
@@ -695,9 +897,10 @@
     ────────────────────────────────────── -->
     <section class="case case--white" aria-label="Case Study 01">
       <div class="inner">
+        <span class="case-bg-num" aria-hidden="true">01</span>
 
         <!-- 2-col header -->
-        <div class="case-header">
+        <div class="case-header fade-up">
 
           <div class="case-header__left">
             <span class="label">Case Study — 01</span>
@@ -737,20 +940,18 @@
         </div><!-- /case-header -->
 
         <!-- Main launch video -->
-        <div class="media-block">
-          <video
-            controls
-            preload="none"
-            poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_1200,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg"
-            src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/00_Somos_Lafayette_launch_video_Eng_pvdgsi.mp4"
-            class="main-video"
-            aria-label="Somos Lafayette brand launch film">
-          </video>
+        <div class="media-block fade-up">
+          <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/00_Somos_Lafayette_launch_video_Eng_pvdgsi.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_1200,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg">
+            <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_1200,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg" alt="Somos Lafayette brand launch film" loading="lazy" />
+            <button class="video-thumb__play" aria-label="Play video">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
           <p class="caption">Somos Lafayette — Brand Launch Film</p>
         </div>
 
         <!-- Lafayette Brand Hub — live interactive embed -->
-        <div class="hub-block">
+        <div class="hub-block fade-up">
           <div class="hub-label-row">
             <span class="label">Lafayette Brand Hub</span>
             <a href="lafayette-hub.html" target="_blank" class="hub-cta">
@@ -771,7 +972,7 @@
         </div>
 
         <!-- E-Bike socials grid -->
-        <div class="media-block">
+        <div class="media-block fade-up">
           <div class="ebike-grid">
             <img src="assets/brand/E-Bike Socials-01.png" alt="E-Bike Social 01" loading="lazy" />
             <img src="assets/brand/E-Bike Socials-02.png" alt="E-Bike Social 02" loading="lazy" />
@@ -791,9 +992,10 @@
     ────────────────────────────────────── -->
     <section class="case case--dark" aria-label="Case Study 02">
       <div class="inner">
+        <span class="case-bg-num" aria-hidden="true">02</span>
 
         <!-- 2-col header -->
-        <div class="case-header">
+        <div class="case-header fade-up">
 
           <div class="case-header__left">
             <span class="label">Case Study — 02</span>
@@ -832,36 +1034,33 @@
         <!-- 3-column video grid -->
         <div class="video-grid">
 
-          <div class="video-item">
-            <video
-              controls
-              preload="none"
-              poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg"
-              src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.mp4"
-              aria-label="AVS Pop Director's Cut">
-            </video>
+          <div class="video-item fade-up">
+            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg">
+              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg" alt="AVS Pop Director's Cut" loading="lazy" />
+              <button class="video-thumb__play" aria-label="Play video">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
             <p class="caption">AVS Pop — Director's Cut</p>
           </div>
 
-          <div class="video-item">
-            <video
-              controls
-              preload="none"
-              poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/05_Telemundo_Colorado_siempre_contigo_ysa6w7.jpg"
-              src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/05_Telemundo_Colorado_siempre_contigo_ysa6w7.mp4"
-              aria-label="Telemundo Colorado Siempre Contigo">
-            </video>
+          <div class="video-item fade-up">
+            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/05_Telemundo_Colorado_siempre_contigo_ysa6w7.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/05_Telemundo_Colorado_siempre_contigo_ysa6w7.jpg">
+              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/05_Telemundo_Colorado_siempre_contigo_ysa6w7.jpg" alt="Telemundo Colorado Siempre Contigo" loading="lazy" />
+              <button class="video-thumb__play" aria-label="Play video">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
             <p class="caption">Telemundo Colorado — Siempre Contigo</p>
           </div>
 
-          <div class="video-item">
-            <video
-              controls
-              preload="none"
-              poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/01_SOCCER_PROMO_TRI_ctjswh.jpg"
-              src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/01_SOCCER_PROMO_TRI_ctjswh.mp4"
-              aria-label="Soccer Promo TRI">
-            </video>
+          <div class="video-item fade-up">
+            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/01_SOCCER_PROMO_TRI_ctjswh.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/01_SOCCER_PROMO_TRI_ctjswh.jpg">
+              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/01_SOCCER_PROMO_TRI_ctjswh.jpg" alt="Soccer Promo TRI" loading="lazy" />
+              <button class="video-thumb__play" aria-label="Play video">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
             <p class="caption">Soccer Promo — TRI</p>
           </div>
 
@@ -876,9 +1075,10 @@
     ────────────────────────────────────── -->
     <section class="case case--light-gray" aria-label="Case Study 03">
       <div class="inner">
+        <span class="case-bg-num" aria-hidden="true">03</span>
 
         <!-- 2-col header -->
-        <div class="case-header">
+        <div class="case-header fade-up">
 
           <div class="case-header__left">
             <span class="label">Case Study — 03</span>
@@ -915,36 +1115,33 @@
         <!-- 3-column video grid -->
         <div class="video-grid">
 
-          <div class="video-item">
-            <video
-              controls
-              preload="none"
-              poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/02_SOCCER__SOLEDAD__TRI_2_v1kul0.jpg"
-              src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/02_SOCCER__SOLEDAD__TRI_2_v1kul0.mp4"
-              aria-label="Soccer La Soledad">
-            </video>
+          <div class="video-item fade-up">
+            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/02_SOCCER__SOLEDAD__TRI_2_v1kul0.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/02_SOCCER__SOLEDAD__TRI_2_v1kul0.jpg">
+              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/02_SOCCER__SOLEDAD__TRI_2_v1kul0.jpg" alt="Soccer La Soledad" loading="lazy" />
+              <button class="video-thumb__play" aria-label="Play video">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
             <p class="caption">Soccer — La Soledad</p>
           </div>
 
-          <div class="video-item">
-            <video
-              controls
-              preload="none"
-              poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/06_TALENT_STEPHANIE_feoqhl.jpg"
-              src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/06_TALENT_STEPHANIE_feoqhl.mp4"
-              aria-label="Talent Showcase Stephanie">
-            </video>
+          <div class="video-item fade-up">
+            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/06_TALENT_STEPHANIE_feoqhl.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/06_TALENT_STEPHANIE_feoqhl.jpg">
+              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/06_TALENT_STEPHANIE_feoqhl.jpg" alt="Talent Showcase Stephanie" loading="lazy" />
+              <button class="video-thumb__play" aria-label="Play video">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
             <p class="caption">Talent Showcase — Stephanie</p>
           </div>
 
-          <div class="video-item">
-            <video
-              controls
-              preload="none"
-              poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/1_Facebook_Post_ulm6ce.jpg"
-              src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/1_Facebook_Post_ulm6ce.mp4"
-              aria-label="Social Facebook Campaign">
-            </video>
+          <div class="video-item fade-up">
+            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/1_Facebook_Post_ulm6ce.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/1_Facebook_Post_ulm6ce.jpg">
+              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/1_Facebook_Post_ulm6ce.jpg" alt="Social Facebook Campaign" loading="lazy" />
+              <button class="video-thumb__play" aria-label="Play video">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            </div>
             <p class="caption">Social — Facebook Campaign</p>
           </div>
 
@@ -971,35 +1168,59 @@
       <div class="photo-grid">
 
         <div class="photo-grid__item photo-grid__item--tall">
-          <img src="assets/photos/TACO-59.jpg" alt="Taco 59" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/TACO-59.jpg" alt="Taco 59" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
         <div class="photo-grid__item photo-grid__item--wide">
-          <img src="assets/photos/MAMBOS_EXP-10.jpg" alt="Mambos Experience 10" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/MAMBOS_EXP-10.jpg" alt="Mambos Experience 10" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
         <div class="photo-grid__item photo-grid__item--wide">
-          <img src="assets/photos/Skincare-10.jpg" alt="Skincare 10" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/Skincare-10.jpg" alt="Skincare 10" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
         <div class="photo-grid__item photo-grid__item--tall">
-          <img src="assets/photos/TACO-76.jpg" alt="Taco 76" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/TACO-76.jpg" alt="Taco 76" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
         <div class="photo-grid__item photo-grid__item--tall">
-          <img src="assets/photos/Daily-Special-2.jpg" alt="Daily Special 2" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/Daily-Special-2.jpg" alt="Daily Special 2" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
         <div class="photo-grid__item photo-grid__item--wide">
-          <img src="assets/photos/MAMBOS_EXP-19.jpg" alt="Mambos Experience 19" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/MAMBOS_EXP-19.jpg" alt="Mambos Experience 19" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
         <div class="photo-grid__item photo-grid__item--wide">
-          <img src="assets/photos/Skincare-12.jpg" alt="Skincare 12" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/Skincare-12.jpg" alt="Skincare 12" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
         <div class="photo-grid__item photo-grid__item--tall">
-          <img src="assets/photos/Daily-Special-7.jpg" alt="Daily Special 7" loading="lazy" />
+          <div class="photo-item fade-up">
+            <img src="assets/photos/Daily-Special-7.jpg" alt="Daily Special 7" loading="lazy" />
+            <div class="photo-item__overlay"></div>
+          </div>
         </div>
 
       </div><!-- /photo-grid -->
@@ -1032,6 +1253,98 @@
       </div>
     </div>
   </section><!-- /contact -->
+
+
+  <!-- ════════════════════════════════════════
+       VIDEO MODAL
+  ════════════════════════════════════════ -->
+  <dialog id="video-modal">
+    <button id="modal-close" aria-label="Close">&#x2715;</button>
+    <video id="modal-video" controls playsinline></video>
+  </dialog>
+
+  <!-- ════════════════════════════════════════
+       GRAIN OVERLAY
+  ════════════════════════════════════════ -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+  <script>
+    /* ─────────────────────────────────────────
+       VIDEO LIGHTBOX
+    ───────────────────────────────────────── */
+    (function () {
+      var modal = document.getElementById('video-modal');
+      var modalVideo = document.getElementById('modal-video');
+      var modalClose = document.getElementById('modal-close');
+
+      function openModal(src, poster) {
+        modalVideo.src = src;
+        if (poster) modalVideo.poster = poster;
+        modal.showModal();
+        modalVideo.play();
+      }
+
+      function closeModal() {
+        modalVideo.pause();
+        modalVideo.src = '';
+        modalVideo.poster = '';
+        modal.close();
+      }
+
+      document.querySelectorAll('.video-thumb').forEach(function (thumb) {
+        thumb.addEventListener('click', function () {
+          var src = thumb.getAttribute('data-src');
+          var poster = thumb.getAttribute('data-poster');
+          openModal(src, poster);
+        });
+      });
+
+      modalClose.addEventListener('click', closeModal);
+
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+      });
+
+      modal.addEventListener('cancel', closeModal);
+    })();
+
+    /* ─────────────────────────────────────────
+       SCROLL-IN ANIMATIONS (IntersectionObserver)
+    ───────────────────────────────────────── */
+    (function () {
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.fade-up').forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, idx) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var delay = el.dataset.delay || 0;
+            setTimeout(function () {
+              el.classList.add('is-visible');
+            }, delay);
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      /* Stagger siblings within video-grid and photo-grid */
+      document.querySelectorAll('.video-grid, .photo-grid').forEach(function (grid) {
+        var children = grid.querySelectorAll('.fade-up');
+        children.forEach(function (child, i) {
+          child.dataset.delay = i * 100;
+        });
+      });
+
+      document.querySelectorAll('.fade-up').forEach(function (el) {
+        observer.observe(el);
+      });
+    })();
+  </script>
 
 </body>
 </html>
