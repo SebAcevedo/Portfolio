@@ -6,1344 +6,710 @@
   <title>Sebastian Acevedo — Brand &amp; Communications Leader</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
-    /* ─────────────────────────────────────────
-       DESIGN TOKENS
-    ───────────────────────────────────────── */
+    /* ─── TOKENS ─── */
     :root {
-      --black:     #1c1917;
-      --gray-900:  #292524;
-      --gray-700:  #57534e;
-      --gray-500:  #a8a29e;
-      --gray-300:  #d6d3d1;
-      --gray-100:  #f5f4f2;
-      --white:     #fafaf8;
+      --ink:       #0d0c0b;
+      --ink-soft:  #1a1917;
+      --warm-mid:  #2e2b28;
+      --rule:      #3a3733;
+      --muted:     #7a7570;
+      --light:     #c4bfb9;
+      --cream:     #f2ede6;
+      --white:     #faf8f4;
     }
 
-    /* ─────────────────────────────────────────
-       RESET / BASE
-    ───────────────────────────────────────── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 400;
-      font-size: 17px;
-      line-height: 1.7;
-      color: var(--gray-700);
-      background: var(--black);
+      background: var(--ink);
+      color: var(--light);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
 
-    img, video {
-      display: block;
-      max-width: 100%;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* ─────────────────────────────────────────
-       LAYOUT HELPERS
-    ───────────────────────────────────────── */
-    .inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-      position: relative;
+    /* ─── GRAIN OVERLAY ─── */
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
     }
 
-    section {
-      scroll-margin-top: 60px;
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 48px;
+      background: transparent;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.3s ease;
     }
-
-    /* ─────────────────────────────────────────
-       TYPOGRAPHY SYSTEM
-    ───────────────────────────────────────── */
-    .label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gray-500);
-      display: block;
-      margin-bottom: 16px;
-    }
-
-    .display-headline {
-      font-weight: 900;
-      line-height: 0.92;
-      letter-spacing: -0.03em;
-    }
-
-    .body-copy {
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1.7;
-      color: var(--gray-700);
-    }
-
-    .meta {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--gray-500);
-    }
-
-    .caption {
-      font-size: 12px;
-      color: var(--gray-500);
-      letter-spacing: 0.05em;
-      margin-top: 8px;
-      text-transform: uppercase;
-    }
-
-    /* ─────────────────────────────────────────
-       GRAIN OVERLAY
-    ───────────────────────────────────────── */
-    .grain-overlay {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0.028;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-size: 256px 256px;
-    }
-
-    /* ─────────────────────────────────────────
-       SCROLL ANIMATIONS
-    ───────────────────────────────────────── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .fade-up.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ─────────────────────────────────────────
-       VIDEO THUMBNAIL
-    ───────────────────────────────────────── */
-    .video-thumb {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      background: #000;
-      aspect-ratio: 16 / 9;
-    }
-    .video-thumb__poster {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
-    }
-    .video-thumb:hover .video-thumb__poster {
-      transform: scale(1.03);
-      opacity: 0.85;
-    }
-    .video-thumb__play {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(1);
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.92);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.25s ease, background 0.25s ease;
-      color: #1c1917;
-    }
-    .video-thumb__play svg {
-      width: 24px;
-      height: 24px;
-      margin-left: 3px;
-    }
-    .video-thumb:hover .video-thumb__play {
-      transform: translate(-50%, -50%) scale(1.1);
-      background: #ffffff;
-    }
-
-    /* ─────────────────────────────────────────
-       VIDEO MODAL
-    ───────────────────────────────────────── */
-    #video-modal {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-      max-height: 100%;
-      background: rgba(0,0,0,0.94);
-      border: none;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-    }
-    #video-modal::backdrop {
-      background: rgba(0,0,0,0.94);
-    }
-    #modal-video {
-      width: 90vw;
-      max-width: 1200px;
-      max-height: 85vh;
-      aspect-ratio: 16/9;
-      background: #000;
-      outline: none;
-    }
-    #modal-close {
-      position: absolute;
-      top: 24px;
-      right: 28px;
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.7);
-      font-size: 28px;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s ease;
-      z-index: 1;
-    }
-    #modal-close:hover { color: #fff; }
-
-    /* ─────────────────────────────────────────
-       NAVIGATION
-    ───────────────────────────────────────── */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      height: 60px;
-      background: var(--black);
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .nav__inner {
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+    nav.nav--scrolled { background: var(--ink); }
     .nav__logo {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.05em;
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--cream);
     }
-
-    .nav__links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
-
+    .nav__links { display: flex; gap: 36px; }
     .nav__links a {
+      font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--gray-300);
+      color: var(--muted);
       transition: color 0.2s;
-      position: relative;
     }
+    .nav__links a:hover { color: var(--cream); }
 
-    .nav__links a:hover {
-      color: var(--white);
-    }
+    /* ─── CONTAINER ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
 
-    .nav__links a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: var(--white);
-      transition: width 0.25s ease;
-    }
-
-    .nav__links a:hover::after { width: 100%; }
-
-    /* ─────────────────────────────────────────
-       HERO
-    ───────────────────────────────────────── */
+    /* ─── HERO ─── */
     .hero {
-      background: var(--black);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 60px;
+      background: var(--ink);
+      display: flex; align-items: center;
+      padding: 120px 48px 80px;
       position: relative;
+      background-image: radial-gradient(ellipse 60% 50% at 10% 20%, rgba(255,255,255,0.018) 0%, transparent 70%);
     }
-
-    .hero__inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-      width: 100%;
-    }
-
-    .hero__pre {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .hero__pre::before {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--gray-500);
-    }
-
+    .hero__inner { max-width: 1200px; margin: 0 auto; width: 100%; }
     .hero__label {
-      font-size: 11px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gray-500);
-      margin-bottom: 0;
+      color: var(--muted);
+      margin-bottom: 32px;
     }
-
     .hero__name {
-      font-size: clamp(72px, 12vw, 160px);
-      font-weight: 900;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(72px, 11vw, 148px);
       line-height: 0.9;
-      letter-spacing: -0.04em;
-      color: var(--white);
-      margin-bottom: 48px;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      font-weight: 400;
     }
-
+    .hero__rule {
+      width: 60px; height: 1px;
+      background: var(--rule);
+      margin: 28px 0;
+    }
     .hero__tagline {
-      font-size: clamp(16px, 2vw, 22px);
+      font-family: 'DM Sans', sans-serif;
       font-weight: 300;
-      color: var(--gray-300);
-      letter-spacing: -0.01em;
+      font-size: 18px;
+      color: var(--light);
+      max-width: 420px;
+      line-height: 1.6;
     }
-
-    .hero__arrow {
+    .hero__scroll {
       position: absolute;
-      bottom: 48px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      color: var(--gray-500);
+      bottom: 40px; left: 48px;
+      font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      animation: arrowBounce 2s ease-in-out infinite;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 10px;
     }
+    .hero__scroll svg { width: 14px; height: 14px; }
 
-    .hero__arrow svg {
-      width: 20px;
-      height: 20px;
-      stroke: var(--gray-500);
-      fill: none;
-      stroke-width: 1.5;
-    }
-
-    @keyframes arrowBounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(8px); }
-    }
-
-    /* ─────────────────────────────────────────
-       WORK SECTION — WRAPPER
-    ───────────────────────────────────────── */
-    .work {
-      background: var(--white);
-    }
-
-    .work__opener {
-      padding: 120px 0 80px;
-    }
-
-    .work__opener .label {
-      font-size: 13px;
-    }
-
-    /* ─────────────────────────────────────────
-       CASE STUDY — SHARED
-    ───────────────────────────────────────── */
-    .case {
-      padding: 120px 0;
-    }
-
-    .case--dark {
-      background: var(--gray-900);
-    }
-
-    .case--light-gray {
-      background: var(--gray-100);
-    }
-
-    .case--white {
-      background: var(--white);
-    }
-
-    /* Background case numbers */
-    .case-bg-num {
-      position: absolute;
-      top: -20px;
-      right: 40px;
-      font-size: clamp(120px, 18vw, 220px);
-      font-weight: 900;
-      line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.06);
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.05em;
-      z-index: 0;
-    }
-
-    .case--white .case-bg-num,
-    .case--light-gray .case-bg-num {
-      -webkit-text-stroke: 1px rgba(0,0,0,0.05);
-    }
-
-    /* 2-column header row */
-    .case-header {
-      display: flex;
-      gap: 80px;
-      align-items: flex-start;
-      margin-bottom: 80px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .case-header__left {
-      flex: 0 0 60%;
-    }
-
-    .case-header__right {
-      flex: 0 0 calc(40% - 80px);
-      border-left: 1px solid rgba(255,255,255,0.1);
-      padding-left: 40px;
-    }
-
-    .case--white .case-header__right,
-    .case--light-gray .case-header__right {
-      border-left: 1px solid var(--gray-300);
-    }
-
-    .case-headline {
-      font-size: clamp(48px, 6vw, 72px);
-      font-weight: 900;
-      line-height: 0.92;
-      letter-spacing: -0.03em;
-      margin-bottom: 32px;
-      margin-top: 24px;
-    }
-
-    .case-body {
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1.7;
-      color: var(--gray-700);
-      max-width: 560px;
-    }
-
-    /* Right column details */
-    .outcome-block {
-      margin-bottom: 32px;
-    }
-
-    .outcome-block .label {
-      margin-bottom: 10px;
-    }
-
-    .outcome-title {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 4px;
-    }
-
-    .outcome-sub {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--gray-500);
-      margin-bottom: 4px;
-    }
-
-    .divider {
-      border: none;
-      border-top: 1px solid var(--gray-300);
-      margin: 20px 0;
-    }
-
-    .divider--dark {
-      border-top-color: var(--gray-700);
-    }
-
-    .detail-list {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--gray-500);
-      line-height: 1.8;
-    }
-
-    /* ─────────────────────────────────────────
-       CASE 01 — MEDIA BLOCKS
-    ───────────────────────────────────────── */
-    .media-block {
-      margin-bottom: 40px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .media-block:last-child {
-      margin-bottom: 0;
-    }
-
-    .hub-image {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
-    }
-
-    /* ─── Lafayette Hub live embed ─── */
-    .hub-block {
-      margin-bottom: 40px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hub-label-row {
+    /* ─── SECTION HEADER ROW ─── */
+    .section-header {
+      border-top: 1px solid var(--rule);
+      padding-top: 20px;
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 16px;
-    }
-
-    .hub-label-row .label {
-      margin-bottom: 0;
-    }
-
-    .hub-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--black);
-      text-decoration: none;
-      border-bottom: 1px solid var(--black);
-      padding-bottom: 2px;
-      transition: opacity 0.2s;
-    }
-
-    .hub-cta:hover { opacity: 0.5; }
-
-    .hub-iframe-wrapper {
-      position: relative;
-      width: 100%;
-      height: 640px;
-      background: var(--gray-100);
-      overflow: hidden;
-      border: 1px solid var(--gray-300);
-    }
-
-    .hub-iframe-wrapper iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    /* click-through overlay: remove if you want the iframe interactive inline */
-    .hub-iframe-overlay {
-      position: absolute;
-      inset: 0;
-      cursor: pointer;
-      z-index: 2;
-    }
-
-    .ebike-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .ebike-grid img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-    }
-
-    /* ─────────────────────────────────────────
-       CASE 02 — DARK OVERRIDES
-    ───────────────────────────────────────── */
-    .case--dark .case-body {
-      color: var(--gray-300);
-    }
-
-    .case--dark .case-headline {
-      color: var(--white);
-    }
-
-    .case--dark .outcome-title {
-      color: var(--white);
-    }
-
-    .case--dark .detail-list {
-      color: var(--gray-300);
-    }
-
-    .case--dark .outcome-sub {
-      color: var(--gray-300);
-    }
-
-    /* Video grid — 3 columns */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ─────────────────────────────────────────
-       CASE 03 — LIGHT GRAY OVERRIDES
-    ───────────────────────────────────────── */
-    .case--light-gray .case-body {
-      color: var(--gray-700);
-    }
-
-    .case--light-gray .case-headline {
-      color: var(--black);
-    }
-
-    /* ─────────────────────────────────────────
-       PHOTOGRAPHY
-    ───────────────────────────────────────── */
-    .photography {
-      background: var(--black);
-      padding: 120px 0;
-    }
-
-    .photography__intro {
       margin-bottom: 80px;
     }
-
-    .photography__headline {
-      font-size: clamp(48px, 8vw, 96px);
-      font-weight: 900;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      color: var(--white);
-      margin-top: 20px;
-    }
-
-    /* Masonry photo grid — 2 columns */
-    .photo-grid {
-      columns: 2;
-      column-gap: 16px;
-    }
-
-    .photo-grid__item {
-      break-inside: avoid;
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-
-    .photo-grid__item--tall img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-    }
-
-    .photo-grid__item--wide img {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* Photo hover reveal */
-    .photo-item {
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    .photo-item img {
-      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .photo-item:hover img {
-      transform: scale(1.04);
-    }
-    .photo-item__overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-    .photo-item:hover .photo-item__overlay {
-      opacity: 1;
-    }
-
-    /* ─────────────────────────────────────────
-       CONTACT / FOOTER
-    ───────────────────────────────────────── */
-    .contact {
-      background: var(--black);
-      padding: 120px 0 0;
-    }
-
-    .contact__headline {
-      font-size: clamp(48px, 8vw, 120px);
-      font-weight: 900;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      color: var(--white);
-      margin-bottom: 64px;
-    }
-
-    .contact__email {
-      display: block;
-      font-size: clamp(22px, 3vw, 36px);
-      font-weight: 300;
-      color: var(--gray-300);
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-      transition: color 0.2s;
-    }
-
-    .contact__email:hover {
-      color: var(--white);
-    }
-
-    .contact__phone {
-      display: block;
-      font-size: clamp(18px, 2.5vw, 28px);
-      font-weight: 300;
-      color: var(--gray-500);
-      letter-spacing: -0.01em;
-      margin-bottom: 120px;
-    }
-
-    .footer-strip {
-      border-top: 1px solid var(--gray-900);
-      padding: 32px 0;
-    }
-
-    .footer-strip p {
+    .section-header span {
+      font-family: 'DM Sans', sans-serif;
       font-size: 11px;
-      font-weight: 400;
-      color: var(--gray-500);
-      letter-spacing: 0.08em;
+      font-weight: 500;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
+      color: var(--muted);
     }
 
-    /* ─────────────────────────────────────────
-       RESPONSIVE
-    ───────────────────────────────────────── */
+    /* ─── SECTION RULE DIVIDER ─── */
+    .section-rule { position: relative; border-top: 1px solid var(--rule); margin: 0; text-align: center; }
+    .section-rule span {
+      position: relative; top: -9px;
+      background: var(--ink); padding: 0 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; color: var(--rule); letter-spacing: 0.1em;
+    }
+    .section-rule--soft span { background: var(--ink-soft); }
+
+    /* ─── LABELS ─── */
+    .label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted);
+      display: block; margin-bottom: 16px;
+    }
+
+    /* ─── CASE SECTIONS ─── */
+    .case { padding: 100px 0; }
+    .case--ink  { background: var(--ink); }
+    .case--soft { background: var(--ink-soft); }
+
+    .case__opener { margin-bottom: 40px; }
+    .case__number {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 24px;
+    }
+    .case__headline {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(52px, 7vw, 96px);
+      line-height: 1.0;
+      color: var(--cream);
+      max-width: 700px;
+      font-weight: 400;
+    }
+    .case__divider { border: none; border-top: 1px solid var(--rule); margin: 40px 0 56px; }
+
+    /* Two-column layout */
+    .case-cols {
+      display: flex; gap: 80px; align-items: flex-start;
+    }
+    .case-cols__left { flex: 3; min-width: 0; }
+    .case-cols__right {
+      flex: 2; min-width: 0;
+      align-self: start;
+      position: sticky; top: 100px;
+      border-left: 1px solid var(--rule);
+      padding-left: 48px;
+    }
+
+    .case-body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300; font-size: 17px;
+      color: var(--light); line-height: 1.75;
+      margin-bottom: 48px;
+    }
+
+    /* Right column meta */
+    .meta-block { margin-bottom: 36px; }
+    .meta-block .label { margin-bottom: 10px; }
+    .meta-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px; color: var(--cream);
+      font-weight: 400; margin-bottom: 4px;
+    }
+    .meta-list {
+      list-style: none;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300; font-size: 15px;
+      color: var(--light); line-height: 1.9;
+    }
+    .meta-text {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300; font-size: 15px;
+      color: var(--light); line-height: 1.7;
+    }
+
+    /* ─── VIDEO THUMB ─── */
+    .vt { position: relative; cursor: pointer; overflow: hidden; background: #000; aspect-ratio: 16/9; }
+    .vt img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, opacity 0.3s ease; display: block; }
+    .vt:hover img { transform: scale(1.02); opacity: 0.75; }
+    .vt__overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding: 28px 32px;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 50%);
+    }
+    .vt__label {
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+    .vt__play {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(255,255,255,0.9); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s ease, background 0.2s ease;
+      color: #0d0c0b; flex-shrink: 0;
+    }
+    .vt__play svg { width: 22px; height: 22px; margin-left: 3px; }
+    .vt:hover .vt__play { transform: scale(1.08); background: #fff; }
+
+    /* ─── HUB FEATURE ─── */
+    .hub-feature { margin-top: 48px; }
+    .hub-feature__header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .hub-feature__link {
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--light); border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px; transition: color 0.2s;
+    }
+    .hub-feature__link:hover { color: var(--cream); }
+    .hub-frame {
+      position: relative; width: 100%; height: 600px;
+      overflow: hidden; background: var(--warm-mid);
+      border: 1px solid var(--rule);
+    }
+    .hub-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+    .hub-frame__click { position: absolute; inset: 0; z-index: 2; cursor: pointer; }
+
+    /* ─── GRIDS ─── */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .grid-5 img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+
+    /* ─── MEDIA HELPERS ─── */
+    .media-caption {
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: var(--muted); letter-spacing: 0.04em; margin-top: 12px;
+    }
+    .media-gap { margin-top: 48px; }
+
+    /* ─── PHOTO GRID ─── */
+    .photo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3px; margin-top: 56px;
+    }
+    .photo-grid__item { overflow: hidden; position: relative; cursor: pointer; background: var(--warm-mid); }
+    .photo-grid__item:nth-child(odd)  { aspect-ratio: 3/4; }
+    .photo-grid__item:nth-child(even) { aspect-ratio: 4/3; }
+    .photo-grid__item:first-child { grid-column: 1 / -1; aspect-ratio: 21/9; }
+    .photo-grid__item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.3s ease;
+    }
+    .photo-grid__item:hover img { transform: scale(1.04); opacity: 0.85; }
+
+    /* ─── CONTACT / FOOTER ─── */
+    .contact { background: var(--ink); padding: 100px 0 60px; }
+    .contact__rule { border: none; border-top: 1px solid var(--rule); margin-bottom: 56px; }
+    .contact__email {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(40px, 6vw, 80px);
+      color: var(--cream); font-weight: 400;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+    .contact__email:hover { opacity: 0.75; }
+    .contact__phone {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300; font-size: 18px;
+      color: var(--light); margin-top: 20px; display: inline-block;
+    }
+    .contact__phone:hover { color: var(--cream); }
+    .footer-strip {
+      border-top: 1px solid var(--rule);
+      margin-top: 80px; padding-top: 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* ─── VIDEO MODAL ─── */
+    #vmodal {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      max-width: 100%; max-height: 100%;
+      background: rgba(13,12,11,0.97);
+      border: none; padding: 0; margin: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #vmodal::backdrop { background: rgba(13,12,11,0.97); }
+    #vmodal-video {
+      width: 90vw; max-width: 1200px; max-height: 85vh;
+      aspect-ratio: 16/9; background: #000;
+    }
+    #vmodal-close {
+      position: fixed; top: 28px; right: 32px;
+      background: none; border: none;
+      color: rgba(255,255,255,0.6); font-size: 32px;
+      cursor: pointer; z-index: 1;
+      transition: color 0.2s; line-height: 1;
+    }
+    #vmodal-close:hover { color: #fff; }
+
+    /* ─── REVEAL ANIMATIONS ─── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .grid-3 .vt:nth-child(2) { transition-delay: 0.1s; }
+    .grid-3 .vt:nth-child(3) { transition-delay: 0.2s; }
+    .grid-5 img:nth-child(2) { transition-delay: 0.05s; }
+    .grid-5 img:nth-child(3) { transition-delay: 0.10s; }
+    .grid-5 img:nth-child(4) { transition-delay: 0.15s; }
+    .grid-5 img:nth-child(5) { transition-delay: 0.20s; }
+
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
-      .inner,
-      .nav__inner,
-      .hero__inner {
-        padding: 0 24px;
+      nav { padding: 20px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .hero__scroll { left: 24px; }
+      .container { padding: 0 24px; }
+      .case-cols { flex-direction: column; }
+      .case-cols__right {
+        position: static;
+        border-left: none; border-top: 1px solid var(--rule);
+        padding-left: 0; padding-top: 40px; margin-top: 40px;
       }
-
-      .case-header {
-        flex-direction: column;
-        gap: 48px;
-      }
-
-      .case-header__left,
-      .case-header__right {
-        flex: none;
-        width: 100%;
-      }
-
-      .case-header__right {
-        border-left: none;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-left: 0;
-        padding-top: 32px;
-      }
-
-      .case--white .case-header__right,
-      .case--light-gray .case-header__right {
-        border-left: none;
-        border-top: 1px solid var(--gray-300);
-      }
-
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .ebike-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .photo-grid {
-        columns: 1;
-      }
-
-      .nav__links {
-        gap: 24px;
-      }
-
-      .case-bg-num {
-        display: none;
-      }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-5 { grid-template-columns: repeat(3, 1fr); }
+      .photo-grid { grid-template-columns: 1fr; }
+      .photo-grid__item:first-child { aspect-ratio: 4/3; }
+      .hub-frame { height: 400px; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ════════════════════════════════════════
-       NAVIGATION
-  ════════════════════════════════════════ -->
-  <nav class="nav" role="navigation" aria-label="Main navigation">
-    <div class="nav__inner">
-      <span class="nav__logo">SA</span>
-      <ul class="nav__links">
-        <li><a href="#work">Work</a></li>
-        <li><a href="#photography">Photography</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+  <!-- GRAIN -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav id="site-nav">
+    <span class="nav__logo">SA</span>
+    <div class="nav__links">
+      <a href="#work">Work</a>
+      <a href="#photography">Photography</a>
+      <a href="#contact">Contact</a>
     </div>
   </nav>
 
-
-  <!-- ════════════════════════════════════════
-       HERO
-  ════════════════════════════════════════ -->
-  <section class="hero" aria-label="Hero">
+  <!-- HERO -->
+  <section class="hero">
     <div class="hero__inner">
-      <div class="hero__pre">
-        <p class="hero__label">Brand &amp; Communications Leader</p>
-      </div>
-      <h1 class="hero__name">
-        Sebastian<br>Acevedo
-      </h1>
-      <p class="hero__tagline">10 years. Built from scratch.</p>
+      <p class="hero__label">Brand &amp; Communications Leader</p>
+      <h1 class="hero__name">Sebastian<br>Acevedo</h1>
+      <div class="hero__rule"></div>
+      <p class="hero__tagline">Building the systems behind the story.<br>10 years. Colorado.</p>
     </div>
-
-    <a href="#work" class="hero__arrow" aria-label="Scroll to work">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <polyline points="6 9 12 15 18 9" />
+    <div class="hero__scroll">
+      Scroll
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
       </svg>
-    </a>
+    </div>
   </section>
 
+  <!-- ─── WORK ─── -->
+  <div id="work">
 
-  <!-- ════════════════════════════════════════
-       WORK SECTION
-  ════════════════════════════════════════ -->
-  <div id="work" class="work">
-
-    <!-- Work opener label -->
-    <div class="work__opener">
-      <div class="inner">
-        <span class="label">Selected Work — 3 Cases</span>
+    <!-- Section marker -->
+    <div class="container">
+      <div class="section-header">
+        <span>Selected Work</span>
+        <span>03 Cases</span>
       </div>
     </div>
 
+    <!-- ════════ CASE 01 ════════ -->
+    <section class="case case--soft">
+      <div class="container">
 
-    <!-- ──────────────────────────────────────
-         CASE 01 — City of Lafayette
-    ────────────────────────────────────── -->
-    <section class="case case--white" aria-label="Case Study 01">
-      <div class="inner">
-        <span class="case-bg-num" aria-hidden="true">01</span>
+        <!-- Opener -->
+        <div class="case__opener reveal">
+          <p class="case__number">01 / City of Lafayette</p>
+          <h2 class="case__headline">Building a City's<br>Brand Voice<br>From Nothing</h2>
+        </div>
+        <hr class="case__divider">
 
-        <!-- 2-col header -->
-        <div class="case-header fade-up">
+        <!-- Two-column -->
+        <div class="case-cols">
+          <div class="case-cols__left">
+            <p class="case-body">The City of Lafayette had no shared identity. Different departments, different voices, no system anyone could hand off. I built the infrastructure — voice guidelines, messaging frameworks, content templates, and an interactive brand hub every department now uses. Then we launched Somos Lafayette, a bilingual identity campaign that gave the city something to rally around.</p>
 
-          <div class="case-header__left">
-            <span class="label">Case Study — 01</span>
-            <h2 class="case-headline">
-              Building a City's<br>
-              Brand Voice<br>
-              From Nothing
-            </h2>
-            <p class="case-body">
-              The City of Lafayette had no shared identity. Different departments, different voices, no system anyone could actually hand off. I built the infrastructure — voice guidelines, messaging frameworks, content templates, and an interactive brand hub that every department now uses. Then we launched Somos Lafayette, a bilingual identity campaign that gave the city something to rally around.
-            </p>
-          </div>
-
-          <div class="case-header__right">
-            <div class="outcome-block">
-              <span class="label">Outcome</span>
-              <p class="outcome-title">Brand System · City-wide</p>
-              <p class="outcome-sub">Promotion Image: Campaign</p>
+            <!-- Main video -->
+            <div class="vt reveal" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/00_Somos_Lafayette_launch_video_Eng_pvdgsi.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_1200,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg">
+              <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_1200,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg" alt="" loading="lazy">
+              <div class="vt__overlay">
+                <span class="vt__label">Somos Lafayette — Brand Launch Film</span>
+                <button class="vt__play" aria-label="Play">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+              </div>
             </div>
 
-            <hr class="divider" />
+            <!-- Hub embed -->
+            <div class="hub-feature reveal">
+              <div class="hub-feature__header">
+                <span class="label">Lafayette Brand Hub</span>
+                <a href="lafayette-hub.html" target="_blank" class="hub-feature__link">Explore Full Hub ↗</a>
+              </div>
+              <div class="hub-frame">
+                <a href="lafayette-hub.html" target="_blank" class="hub-frame__click" aria-label="Open Lafayette Brand Hub"></a>
+                <iframe src="lafayette-hub.html" loading="lazy" sandbox="allow-scripts allow-same-origin" title="Lafayette Brand Hub"></iframe>
+              </div>
+              <p class="media-caption">Lafayette Brand Hub — voice guidelines, color systems, logo toolkit, and interactive templates built for city staff</p>
+            </div>
 
-            <div class="outcome-block">
+            <!-- E-Bike socials grid -->
+            <div class="grid-5 media-gap">
+              <img src="assets/brand/E-Bike Socials-01.png" alt="" loading="lazy" class="reveal">
+              <img src="assets/brand/E-Bike Socials-02.png" alt="" loading="lazy" class="reveal">
+              <img src="assets/brand/E-Bike Socials-03.png" alt="" loading="lazy" class="reveal">
+              <img src="assets/brand/E-Bike Socials-04.png" alt="" loading="lazy" class="reveal">
+              <img src="assets/brand/E-Bike Socials-05.png" alt="" loading="lazy" class="reveal">
+            </div>
+            <p class="media-caption">E-Bike Program — Social Content Series</p>
+          </div>
+
+          <!-- Right meta column -->
+          <div class="case-cols__right">
+            <div class="meta-block">
+              <span class="label">Outcome</span>
+              <p class="meta-title">Brand System · City-wide</p>
+            </div>
+            <div class="meta-block">
               <span class="label">Deliverables</span>
-              <p class="detail-list">
-                Brand System · Voice Guidelines · Digital Asset Library<br>
-                Lafayette Brand Hub · Bilingual Campaigns
-              </p>
+              <ul class="meta-list">
+                <li>Voice Guidelines</li>
+                <li>Messaging Frameworks</li>
+                <li>Digital Asset Library</li>
+                <li>Lafayette Brand Hub</li>
+                <li>Bilingual Campaigns</li>
+              </ul>
             </div>
-
-            <div class="outcome-block">
+            <div class="meta-block">
               <span class="label">Client</span>
-              <p class="detail-list">City of Lafayette, CO · 2023–Present</p>
+              <p class="meta-text">City of Lafayette, CO<br>2023 – Present</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-rule"><span>—</span></div>
+
+    <!-- ════════ CASE 02 ════════ -->
+    <section class="case case--ink">
+      <div class="container">
+
+        <div class="case__opener reveal">
+          <p class="case__number">02 / NBCUniversal &amp; Univision</p>
+          <h2 class="case__headline">Broadcast.<br>National Stage.<br>No Shortcuts</h2>
+        </div>
+        <hr class="case__divider">
+
+        <div class="case-cols">
+          <div class="case-cols__left">
+            <p class="case-body">Five years in broadcast. NBCUniversal and Univision. Fast turnarounds, national audiences, and a standard that doesn't forgive mediocrity. At Univision I led Spanish-language brand and promotional creative for a market that reads through anything inauthentic. At NBCUniversal I ran promotional storytelling for one of the country's largest networks.</p>
+
+            <!-- 3-column video grid -->
+            <div class="grid-3">
+              <div class="vt reveal" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg">
+                <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg" alt="" loading="lazy">
+                <div class="vt__overlay">
+                  <span class="vt__label">AVS Pop — Director's Cut</span>
+                  <button class="vt__play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+                </div>
+              </div>
+              <div class="vt reveal" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/05_Telemundo_Colorado_siempre_contigo_ysa6w7.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/05_Telemundo_Colorado_siempre_contigo_ysa6w7.jpg">
+                <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/05_Telemundo_Colorado_siempre_contigo_ysa6w7.jpg" alt="" loading="lazy">
+                <div class="vt__overlay">
+                  <span class="vt__label">Telemundo Colorado — Siempre Contigo</span>
+                  <button class="vt__play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+                </div>
+              </div>
+              <div class="vt reveal" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/01_SOCCER_PROMO_TRI_ctjswh.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/01_SOCCER_PROMO_TRI_ctjswh.jpg">
+                <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/01_SOCCER_PROMO_TRI_ctjswh.jpg" alt="" loading="lazy">
+                <div class="vt__overlay">
+                  <span class="vt__label">Soccer Promo — TRI</span>
+                  <button class="vt__play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+                </div>
+              </div>
             </div>
           </div>
 
-        </div><!-- /case-header -->
-
-        <!-- Main launch video -->
-        <div class="media-block fade-up">
-          <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/00_Somos_Lafayette_launch_video_Eng_pvdgsi.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_1200,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg">
-            <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_1200,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg" alt="Somos Lafayette brand launch film" loading="lazy" />
-            <button class="video-thumb__play" aria-label="Play video">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </button>
-          </div>
-          <p class="caption">Somos Lafayette — Brand Launch Film</p>
-        </div>
-
-        <!-- Lafayette Brand Hub — live interactive embed -->
-        <div class="hub-block fade-up">
-          <div class="hub-label-row">
-            <span class="label">Lafayette Brand Hub</span>
-            <a href="lafayette-hub.html" target="_blank" class="hub-cta">
-              Explore Full Hub &nbsp;↗
-            </a>
-          </div>
-          <div class="hub-iframe-wrapper">
-            <!-- Overlay makes the whole block a click-through to the full hub -->
-            <a href="lafayette-hub.html" target="_blank" class="hub-iframe-overlay" aria-label="Open Lafayette Brand Hub"></a>
-            <iframe
-              src="lafayette-hub.html"
-              title="Lafayette Brand Hub — interactive brand guidelines portal"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin">
-            </iframe>
-          </div>
-          <p class="caption">Lafayette Brand Hub — voice guidelines, color systems, logo toolkit, and interactive templates. Built for city staff to use daily.</p>
-        </div>
-
-        <!-- E-Bike socials grid -->
-        <div class="media-block fade-up">
-          <div class="ebike-grid">
-            <img src="assets/brand/E-Bike Socials-01.png" alt="E-Bike Social 01" loading="lazy" />
-            <img src="assets/brand/E-Bike Socials-02.png" alt="E-Bike Social 02" loading="lazy" />
-            <img src="assets/brand/E-Bike Socials-03.png" alt="E-Bike Social 03" loading="lazy" />
-            <img src="assets/brand/E-Bike Socials-04.png" alt="E-Bike Social 04" loading="lazy" />
-            <img src="assets/brand/E-Bike Socials-05.png" alt="E-Bike Social 05" loading="lazy" />
-          </div>
-          <p class="caption">E-Bike Program — Social Content Series</p>
-        </div>
-
-      </div><!-- /inner -->
-    </section><!-- /case 01 -->
-
-
-    <!-- ──────────────────────────────────────
-         CASE 02 — Broadcast
-    ────────────────────────────────────── -->
-    <section class="case case--dark" aria-label="Case Study 02">
-      <div class="inner">
-        <span class="case-bg-num" aria-hidden="true">02</span>
-
-        <!-- 2-col header -->
-        <div class="case-header fade-up">
-
-          <div class="case-header__left">
-            <span class="label">Case Study — 02</span>
-            <h2 class="case-headline">
-              Broadcast.<br>
-              National Stage.<br>
-              No Shortcuts
-            </h2>
-            <p class="case-body">
-              Five years in broadcast. NBCUniversal and Univision. Fast turnarounds, national audiences, and a standard that doesn't forgive mediocrity. At Univision I led Spanish-language brand and promotional creative for a market that reads through anything inauthentic. At NBCUniversal I ran promotional storytelling for one of the country's largest networks.
-            </p>
-          </div>
-
-          <div class="case-header__right">
-            <div class="outcome-block">
+          <!-- Right meta column -->
+          <div class="case-cols__right">
+            <div class="meta-block">
               <span class="label">Outcome</span>
-              <p class="outcome-title">Two Emmy Awards · 2023</p>
-              <p class="outcome-sub">News Promotion Image: Single Spot</p>
-              <p class="outcome-sub">Promotion Image: Campaign</p>
-              <p class="outcome-sub" style="color: var(--gray-300); margin-top: 8px;">CBA Awards of Excellence · 2023</p>
+              <p class="meta-title">Two Emmy Awards · 2023</p>
+              <ul class="meta-list" style="margin-top:8px;">
+                <li>News Promotion Image: Single Spot</li>
+                <li>Promotion Image: Campaign</li>
+                <li>CBA Awards of Excellence · 2023</li>
+              </ul>
             </div>
-
-            <hr class="divider divider--dark" />
-
-            <div class="outcome-block">
+            <div class="meta-block">
               <span class="label">Roles</span>
-              <p class="detail-list">
-                Creative Services Manager · NBCUniversal · 2022–2023<br>
-                Creative Services Manager · Univision · 2018–2022
-              </p>
+              <ul class="meta-list">
+                <li>Creative Services Manager</li>
+                <li>NBCUniversal · 2022–2023</li>
+                <li style="margin-top:8px;">Creative Services Manager</li>
+                <li>Univision · 2018–2022</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="section-rule section-rule--soft"><span>—</span></div>
+
+    <!-- ════════ CASE 03 ════════ -->
+    <section class="case case--soft">
+      <div class="container">
+
+        <div class="case__opener reveal">
+          <p class="case__number">03 / Hispanic Audience Campaigns</p>
+          <h2 class="case__headline">Fluency,<br>Not Translation</h2>
+        </div>
+        <hr class="case__divider">
+
+        <div class="case-cols">
+          <div class="case-cols__left">
+            <p class="case-body">Spanish-speaking audiences don't just decode messages — they read intent. A campaign built by someone who doesn't understand the culture fails on contact. I spent years building campaigns that knew the difference: sports identity spots, talent showcases, and social content built around cultural fluency, not reach metrics.</p>
+
+            <div class="grid-3">
+              <div class="vt reveal" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/02_SOCCER__SOLEDAD__TRI_2_v1kul0.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/02_SOCCER__SOLEDAD__TRI_2_v1kul0.jpg">
+                <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/02_SOCCER__SOLEDAD__TRI_2_v1kul0.jpg" alt="" loading="lazy">
+                <div class="vt__overlay">
+                  <span class="vt__label">Soccer — La Soledad</span>
+                  <button class="vt__play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+                </div>
+              </div>
+              <div class="vt reveal" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/06_TALENT_STEPHANIE_feoqhl.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/06_TALENT_STEPHANIE_feoqhl.jpg">
+                <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/06_TALENT_STEPHANIE_feoqhl.jpg" alt="" loading="lazy">
+                <div class="vt__overlay">
+                  <span class="vt__label">Talent Showcase — Stephanie</span>
+                  <button class="vt__play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+                </div>
+              </div>
+              <div class="vt reveal" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/1_Facebook_Post_ulm6ce.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/1_Facebook_Post_ulm6ce.jpg">
+                <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/1_Facebook_Post_ulm6ce.jpg" alt="" loading="lazy">
+                <div class="vt__overlay">
+                  <span class="vt__label">Social — Facebook Campaign</span>
+                  <button class="vt__play" aria-label="Play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+                </div>
+              </div>
             </div>
           </div>
 
-        </div><!-- /case-header -->
-
-        <!-- 3-column video grid -->
-        <div class="video-grid">
-
-          <div class="video-item fade-up">
-            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg">
-              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg" alt="AVS Pop Director's Cut" loading="lazy" />
-              <button class="video-thumb__play" aria-label="Play video">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-            <p class="caption">AVS Pop — Director's Cut</p>
-          </div>
-
-          <div class="video-item fade-up">
-            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/05_Telemundo_Colorado_siempre_contigo_ysa6w7.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/05_Telemundo_Colorado_siempre_contigo_ysa6w7.jpg">
-              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/05_Telemundo_Colorado_siempre_contigo_ysa6w7.jpg" alt="Telemundo Colorado Siempre Contigo" loading="lazy" />
-              <button class="video-thumb__play" aria-label="Play video">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-            <p class="caption">Telemundo Colorado — Siempre Contigo</p>
-          </div>
-
-          <div class="video-item fade-up">
-            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/01_SOCCER_PROMO_TRI_ctjswh.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/01_SOCCER_PROMO_TRI_ctjswh.jpg">
-              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/01_SOCCER_PROMO_TRI_ctjswh.jpg" alt="Soccer Promo TRI" loading="lazy" />
-              <button class="video-thumb__play" aria-label="Play video">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-            <p class="caption">Soccer Promo — TRI</p>
-          </div>
-
-        </div><!-- /video-grid -->
-
-      </div><!-- /inner -->
-    </section><!-- /case 02 -->
-
-
-    <!-- ──────────────────────────────────────
-         CASE 03 — Cultural Fluency
-    ────────────────────────────────────── -->
-    <section class="case case--light-gray" aria-label="Case Study 03">
-      <div class="inner">
-        <span class="case-bg-num" aria-hidden="true">03</span>
-
-        <!-- 2-col header -->
-        <div class="case-header fade-up">
-
-          <div class="case-header__left">
-            <span class="label">Case Study — 03</span>
-            <h2 class="case-headline">
-              Fluency.<br>
-              Not Translation
-            </h2>
-            <p class="case-body">
-              Spanish-speaking audiences don't just decode messages — they read intent. A campaign built by someone who doesn't understand the culture fails on contact. I spent years building campaigns that knew the difference: the Herencia Hispana series, sports identity spots, social content, and talent showcases that spoke to who the audience actually is.
-            </p>
-          </div>
-
-          <div class="case-header__right">
-            <div class="outcome-block">
+          <!-- Right meta column -->
+          <div class="case-cols__right">
+            <div class="meta-block">
               <span class="label">Outcome</span>
-              <p class="outcome-title">Cultural campaigns that connected</p>
+              <p class="meta-title">Cultural campaigns<br>that connected</p>
             </div>
-
-            <hr class="divider" />
-
-            <div class="outcome-block">
+            <div class="meta-block">
               <span class="label">Platforms</span>
-              <p class="detail-list">Univision · Telemundo · Social Media</p>
+              <p class="meta-text">Univision · Telemundo · Social Media</p>
             </div>
-
-            <div class="outcome-block">
+            <div class="meta-block">
               <span class="label">Languages</span>
-              <p class="detail-list">English / Spanish</p>
+              <p class="meta-text">English / Spanish</p>
             </div>
           </div>
+        </div>
 
-        </div><!-- /case-header -->
-
-        <!-- 3-column video grid -->
-        <div class="video-grid">
-
-          <div class="video-item fade-up">
-            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/02_SOCCER__SOLEDAD__TRI_2_v1kul0.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/02_SOCCER__SOLEDAD__TRI_2_v1kul0.jpg">
-              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/02_SOCCER__SOLEDAD__TRI_2_v1kul0.jpg" alt="Soccer La Soledad" loading="lazy" />
-              <button class="video-thumb__play" aria-label="Play video">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-            <p class="caption">Soccer — La Soledad</p>
-          </div>
-
-          <div class="video-item fade-up">
-            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/06_TALENT_STEPHANIE_feoqhl.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/06_TALENT_STEPHANIE_feoqhl.jpg">
-              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/06_TALENT_STEPHANIE_feoqhl.jpg" alt="Talent Showcase Stephanie" loading="lazy" />
-              <button class="video-thumb__play" aria-label="Play video">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-            <p class="caption">Talent Showcase — Stephanie</p>
-          </div>
-
-          <div class="video-item fade-up">
-            <div class="video-thumb" data-src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/1_Facebook_Post_ulm6ce.mp4" data-poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/1_Facebook_Post_ulm6ce.jpg">
-              <img class="video-thumb__poster" src="https://res.cloudinary.com/ddkmi47mi/video/upload/so_auto,w_800,q_80/1_Facebook_Post_ulm6ce.jpg" alt="Social Facebook Campaign" loading="lazy" />
-              <button class="video-thumb__play" aria-label="Play video">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-              </button>
-            </div>
-            <p class="caption">Social — Facebook Campaign</p>
-          </div>
-
-        </div><!-- /video-grid -->
-
-      </div><!-- /inner -->
-    </section><!-- /case 03 -->
+      </div>
+    </section>
 
   </div><!-- /work -->
 
+  <!-- ─── PHOTOGRAPHY ─── -->
+  <section id="photography" style="background: var(--ink); padding: 100px 0;">
+    <div class="container">
 
-  <!-- ════════════════════════════════════════
-       PHOTOGRAPHY
-  ════════════════════════════════════════ -->
-  <section id="photography" class="photography" aria-label="Photography">
-    <div class="inner">
-
-      <div class="photography__intro">
-        <span class="label">Photography</span>
-        <h2 class="photography__headline">The Lens</h2>
+      <div class="section-header">
+        <span>Photography</span>
+        <span>8 Images</span>
       </div>
 
-      <!-- Asymmetric 2-column masonry grid -->
+      <h2 class="reveal" style="font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(52px,7vw,88px);color:var(--cream);font-weight:400;line-height:1.0;">The Lens</h2>
+
       <div class="photo-grid">
-
-        <div class="photo-grid__item photo-grid__item--tall">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/TACO-59.jpg" alt="Taco 59" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-        <div class="photo-grid__item photo-grid__item--wide">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/MAMBOS_EXP-10.jpg" alt="Mambos Experience 10" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-        <div class="photo-grid__item photo-grid__item--wide">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/Skincare-10.jpg" alt="Skincare 10" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-        <div class="photo-grid__item photo-grid__item--tall">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/TACO-76.jpg" alt="Taco 76" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-        <div class="photo-grid__item photo-grid__item--tall">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/Daily-Special-2.jpg" alt="Daily Special 2" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-        <div class="photo-grid__item photo-grid__item--wide">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/MAMBOS_EXP-19.jpg" alt="Mambos Experience 19" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-        <div class="photo-grid__item photo-grid__item--wide">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/Skincare-12.jpg" alt="Skincare 12" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-        <div class="photo-grid__item photo-grid__item--tall">
-          <div class="photo-item fade-up">
-            <img src="assets/photos/Daily-Special-7.jpg" alt="Daily Special 7" loading="lazy" />
-            <div class="photo-item__overlay"></div>
-          </div>
-        </div>
-
-      </div><!-- /photo-grid -->
-
-    </div><!-- /inner -->
-  </section><!-- /photography -->
-
-
-  <!-- ════════════════════════════════════════
-       CONTACT / FOOTER
-  ════════════════════════════════════════ -->
-  <section id="contact" class="contact" aria-label="Contact">
-    <div class="inner">
-
-      <span class="label" style="display:block; margin-bottom: 40px;">Contact</span>
-
-      <a href="mailto:jseb.acevedo@gmail.com" class="contact__email">
-        jseb.acevedo@gmail.com
-      </a>
-
-      <a href="tel:+19042388937" class="contact__phone">
-        904-238-8937
-      </a>
+        <div class="photo-grid__item reveal"><img src="assets/photography/TACO-59.jpg" alt="" loading="lazy"></div>
+        <div class="photo-grid__item reveal"><img src="assets/photography/MAMBOS_EXP-10.jpg" alt="" loading="lazy"></div>
+        <div class="photo-grid__item reveal"><img src="assets/photography/Skincare-10.jpg" alt="" loading="lazy"></div>
+        <div class="photo-grid__item reveal"><img src="assets/photography/TACO-76.jpg" alt="" loading="lazy"></div>
+        <div class="photo-grid__item reveal"><img src="assets/photography/Daily-Special-2.jpg" alt="" loading="lazy"></div>
+        <div class="photo-grid__item reveal"><img src="assets/photography/MAMBOS_EXP-19.jpg" alt="" loading="lazy"></div>
+        <div class="photo-grid__item reveal"><img src="assets/photography/Skincare-12.jpg" alt="" loading="lazy"></div>
+        <div class="photo-grid__item reveal"><img src="assets/photography/Daily-Special-7.jpg" alt="" loading="lazy"></div>
+      </div>
 
     </div>
+  </section>
 
-    <div class="footer-strip">
-      <div class="inner">
-        <p>© 2026 Sebastian Acevedo — Colorado</p>
+  <!-- ─── CONTACT ─── -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <hr class="contact__rule">
+      <span class="label">Contact</span>
+      <div class="reveal">
+        <a href="mailto:jseb.acevedo@gmail.com" class="contact__email">jseb.acevedo@gmail.com</a>
+        <br>
+        <a href="tel:9042388937" class="contact__phone">904-238-8937</a>
+      </div>
+      <div class="footer-strip">
+        &copy; 2026 Sebastian Acevedo &nbsp;—&nbsp; Colorado &nbsp;—&nbsp; Brand &amp; Communications
       </div>
     </div>
-  </section><!-- /contact -->
+  </section>
 
-
-  <!-- ════════════════════════════════════════
-       VIDEO MODAL
-  ════════════════════════════════════════ -->
-  <dialog id="video-modal">
-    <button id="modal-close" aria-label="Close">&#x2715;</button>
-    <video id="modal-video" controls playsinline></video>
+  <!-- ─── VIDEO MODAL ─── -->
+  <dialog id="vmodal">
+    <button id="vmodal-close" aria-label="Close">&#x2715;</button>
+    <video id="vmodal-video" controls playsinline></video>
   </dialog>
 
-  <!-- ════════════════════════════════════════
-       GRAIN OVERLAY
-  ════════════════════════════════════════ -->
-  <div class="grain-overlay" aria-hidden="true"></div>
-
   <script>
-    /* ─────────────────────────────────────────
-       VIDEO LIGHTBOX
-    ───────────────────────────────────────── */
-    (function () {
-      var modal = document.getElementById('video-modal');
-      var modalVideo = document.getElementById('modal-video');
-      var modalClose = document.getElementById('modal-close');
-
-      function openModal(src, poster) {
-        modalVideo.src = src;
-        if (poster) modalVideo.poster = poster;
-        modal.showModal();
-        modalVideo.play();
-      }
-
-      function closeModal() {
-        modalVideo.pause();
-        modalVideo.src = '';
-        modalVideo.poster = '';
-        modal.close();
-      }
-
-      document.querySelectorAll('.video-thumb').forEach(function (thumb) {
-        thumb.addEventListener('click', function () {
-          var src = thumb.getAttribute('data-src');
-          var poster = thumb.getAttribute('data-poster');
-          openModal(src, poster);
-        });
+    // Video modal
+    document.querySelectorAll('.vt').forEach(vt => {
+      vt.addEventListener('click', () => {
+        const v = document.getElementById('vmodal-video');
+        v.src = vt.dataset.src;
+        v.poster = vt.dataset.poster;
+        document.getElementById('vmodal').showModal();
+        v.play();
       });
+    });
+    document.getElementById('vmodal-close').addEventListener('click', closeModal);
+    document.getElementById('vmodal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+    function closeModal() {
+      const v = document.getElementById('vmodal-video');
+      v.pause();
+      v.src = '';
+      document.getElementById('vmodal').close();
+    }
 
-      modalClose.addEventListener('click', closeModal);
+    // Nav scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 40);
+    });
 
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) closeModal();
+    // Fade-in on scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
       });
-
-      modal.addEventListener('cancel', closeModal);
-    })();
-
-    /* ─────────────────────────────────────────
-       SCROLL-IN ANIMATIONS (IntersectionObserver)
-    ───────────────────────────────────────── */
-    (function () {
-      if (!('IntersectionObserver' in window)) {
-        document.querySelectorAll('.fade-up').forEach(function (el) {
-          el.classList.add('is-visible');
-        });
-        return;
-      }
-
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry, idx) {
-          if (entry.isIntersecting) {
-            var el = entry.target;
-            var delay = el.dataset.delay || 0;
-            setTimeout(function () {
-              el.classList.add('is-visible');
-            }, delay);
-            observer.unobserve(el);
-          }
-        });
-      }, { threshold: 0.12 });
-
-      /* Stagger siblings within video-grid and photo-grid */
-      document.querySelectorAll('.video-grid, .photo-grid').forEach(function (grid) {
-        var children = grid.querySelectorAll('.fade-up');
-        children.forEach(function (child, i) {
-          child.dataset.delay = i * 100;
-        });
-      });
-
-      document.querySelectorAll('.fade-up').forEach(function (el) {
-        observer.observe(el);
-      });
-    })();
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 
 </body>
