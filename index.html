@@ -12,13 +12,15 @@
     /* ─── TOKENS ─── */
     :root {
       --ink:       #111110;
-      --ink-soft:  #1c1c1b;
-      --warm-mid:  #272625;
-      --rule:      #303030;
+      --ink-soft:  #1a1918;
+      --warm-mid:  #252422;
+      --rule:      #2e2e2c;
       --muted:     #6a6a68;
-      --light:     #adadaa;
-      --cream:     #e8e6e1;
-      --white:     #f5f4f0;
+      --light:     #b0aead;
+      --cream:     #f0ece5;
+      --white:     #f8f6f2;
+      --gold:      #c8912a;
+      --gold-soft: #a87520;
     }
 
     /* ─── RESET ─── */
@@ -69,7 +71,7 @@
       color: var(--muted);
       transition: color 0.2s;
     }
-    .nav__links a:hover { color: var(--cream); }
+    .nav__links a:hover { color: var(--gold); }
 
     /* ─── CONTAINER ─── */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
@@ -102,8 +104,8 @@
       color: var(--cream);
     }
     .hero__rule {
-      width: 60px; height: 1px;
-      background: var(--rule);
+      width: 60px; height: 2px;
+      background: var(--gold);
       margin: 28px 0;
     }
     .hero__tagline {
@@ -173,7 +175,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 11px; font-weight: 500;
       letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 24px;
+      color: var(--gold); margin-bottom: 24px;
     }
     .case__headline {
       font-family: 'Bebas Neue', sans-serif;
@@ -185,7 +187,8 @@
       color: var(--cream);
       max-width: 800px;
     }
-    .case__divider { border: none; border-top: 1px solid var(--rule); margin: 40px 0 56px; }
+    .case__divider { border: none; border-top: 1px solid var(--rule); margin: 40px 0 56px; position: relative; }
+    .case__divider::before { content: ''; position: absolute; top: -1px; left: 0; width: 48px; height: 2px; background: var(--gold); }
 
     /* Two-column layout */
     .case-cols {
@@ -312,7 +315,7 @@
       transition: opacity 0.2s;
       display: inline-block;
     }
-    .contact__email:hover { opacity: 0.75; }
+    .contact__email:hover { color: var(--gold); opacity: 1; }
     .contact__phone {
       font-family: 'DM Sans', sans-serif;
       font-weight: 300; font-size: 18px;
