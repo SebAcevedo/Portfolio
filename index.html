@@ -312,6 +312,41 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 3px; margin-top: 56px;
     }
+
+    /* ─── REEL EMBEDS ─── */
+    .reel-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 56px;
+    }
+    .reel-embed {
+      position: relative; aspect-ratio: 16/9;
+      background: #000; overflow: hidden;
+      border: 1px solid var(--rule);
+    }
+    .reel-embed iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: none;
+    }
+    .reel-cta {
+      margin-top: 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+      padding-top: 32px;
+      border-top: 1px solid var(--rule);
+    }
+    .reel-cta__text {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300; font-size: 15px;
+      color: var(--light);
+    }
+    .reel-cta__link {
+      font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); border-bottom: 1px solid var(--gold);
+      padding-bottom: 3px; white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .reel-cta__link:hover { opacity: 0.7; }
     .photo-grid__item { overflow: hidden; position: relative; cursor: pointer; background: var(--warm-mid); }
     .photo-grid__item:nth-child(odd)  { aspect-ratio: 3/4; }
     .photo-grid__item:nth-child(even) { aspect-ratio: 4/3; }
@@ -408,6 +443,7 @@
         padding-left: 0; padding-top: 40px; margin-top: 40px;
       }
       .grid-3 { grid-template-columns: 1fr; }
+      .reel-grid { grid-template-columns: 1fr; }
       .grid-5 { grid-template-columns: repeat(3, 1fr); }
       .photo-grid { grid-template-columns: 1fr; }
       .photo-grid__item:first-child { aspect-ratio: 4/3; }
@@ -427,6 +463,7 @@
       <a href="#lafayette">Lafayette</a>
       <a href="#broadcast">Broadcast</a>
       <a href="#bilingual">Bilingual</a>
+      <a href="#reel">Reel</a>
       <a href="#photography">Photos</a>
       <a href="#contact">Contact</a>
     </div>
@@ -669,6 +706,35 @@
 
   </div><!-- /work -->
 
+  <!-- ─── EXTENDED REEL ─── -->
+  <section id="reel" style="background: var(--ink-soft); padding: 100px 0;">
+    <div class="container">
+
+      <div class="section-header">
+        <span>Extended Reel</span>
+        <span>32 Pieces</span>
+      </div>
+
+      <h2 class="reveal" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,8vw,104px);color:var(--cream);font-weight:400;line-height:0.95;letter-spacing:0.03em;">More From<br>The Reel</h2>
+      <p class="case-body reveal" style="margin-top:24px;max-width:640px;">A deeper cut of the work behind the case studies above, campaign spots, brand films, and social content spanning broadcast and civic projects. This is a sample from a larger library.</p>
+
+      <div class="reel-grid">
+        <div class="reel-embed reveal"><iframe src="https://www-ccv.adobe.io/v1/player/ccv/KihAu2hJqqp/embed?bgcolor=%23191919&amp;lazyLoading=true&amp;api_key=BehancePro2View" allowfullscreen loading="lazy"></iframe></div>
+        <div class="reel-embed reveal"><iframe src="https://www-ccv.adobe.io/v1/player/ccv/MHzdWTCFaVK/embed?bgcolor=%23191919&amp;lazyLoading=true&amp;api_key=BehancePro2View" allowfullscreen loading="lazy"></iframe></div>
+        <div class="reel-embed reveal"><iframe src="https://www-ccv.adobe.io/v1/player/ccv/4HrQAIyWrQx/embed?bgcolor=%23191919&amp;lazyLoading=true&amp;api_key=BehancePro2View" allowfullscreen loading="lazy"></iframe></div>
+        <div class="reel-embed reveal"><iframe src="https://www-ccv.adobe.io/v1/player/ccv/F4_UuMYokPh/embed?bgcolor=%23191919&amp;lazyLoading=true&amp;api_key=BehancePro2View" allowfullscreen loading="lazy"></iframe></div>
+        <div class="reel-embed reveal"><iframe src="https://www-ccv.adobe.io/v1/player/ccv/KtJCudsnv-4/embed?bgcolor=%23191919&amp;lazyLoading=true&amp;api_key=BehancePro2View" allowfullscreen loading="lazy"></iframe></div>
+        <div class="reel-embed reveal"><iframe src="https://www-ccv.adobe.io/v1/player/ccv/BHhpzbbTHhh/embed?bgcolor=%23191919&amp;lazyLoading=true&amp;api_key=BehancePro2View" allowfullscreen loading="lazy"></iframe></div>
+      </div>
+
+      <div class="reel-cta reveal">
+        <p class="reel-cta__text">Showing 6 of 32 pieces from the full video library.</p>
+        <a href="https://jsebacevedo.myportfolio.com/video" target="_blank" class="reel-cta__link">View Full Video Library ↗</a>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ─── PHOTOGRAPHY ─── -->
   <section id="photography" style="background: var(--ink); padding: 100px 0;">
     <div class="container">
@@ -759,7 +825,7 @@
     });
 
     // Scroll spy: highlight active section in nav based on scroll position
-    const spySections = ['lafayette', 'broadcast', 'bilingual', 'photography', 'contact']
+    const spySections = ['lafayette', 'broadcast', 'bilingual', 'reel', 'photography', 'contact']
       .map(id => document.getElementById(id)).filter(Boolean);
     const navAnchors = Array.from(navLinks.querySelectorAll('a'));
     function updateActiveNav() {
