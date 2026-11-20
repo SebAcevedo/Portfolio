@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leading broadcast promotion — Sebastian Acevedo</title>
 <meta name="description" content="Bilingual broadcast promotion at NBCUniversal and Univision in Denver, 2018–2023: campaign development, mentoring and editorial review. Campaigns he produced at NBCUniversal won two Emmy Awards in 2023.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/film.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/oxblood.css">
 <style>
   /* Videos keep their native 16:9 so nothing is cropped while playing; one per row on phones. */
   #work video { aspect-ratio: 16/9; object-fit: contain; background: #000; }
@@ -16,20 +14,20 @@
 </style>
 </head>
 <body>
-<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
-<header class="bar solid">
-  <a class="rec mono" href="index.html"><i aria-hidden="true"></i><span>S. Acevedo</span></a>
-  <nav class="mono" aria-label="Scenes"><a href="lafayette.html"><span class="n">01 </span>Lafayette</a><a href="somos.html"><span class="n">02 </span>Somos</a><a href="engage.html"><span class="n">03 </span>Engage</a><a href="broadcast.html" aria-current="page"><span class="n">04 </span>Broadcast</a><a href="march.html"><span class="n">05 </span>March</a><a href="index.html#end" data-i18n="contact">Contact</a></nav>
-  <div class="lang mono" role="group" aria-label="Language / Idioma"><button aria-pressed="true" data-l="en">EN</button><button aria-pressed="false" data-l="es" lang="es">ES</button></div>
+<header class="site-header shell">
+  <a class="wordmark" href="index.html" aria-label="Sebastian Acevedo, home">Sebastian Acevedo</a>
+  <nav class="site-nav" aria-label="Main navigation" data-i18n-label="navl"><a href="index.html#work" data-i18n="nwork" aria-current="true">Work</a><a href="video.html" data-i18n="nvideo">Video</a><a href="index.html#about" data-i18n="nabout">About</a><a href="index.html#contact" data-i18n="contact">Contact</a><div class="lang" role="group" aria-label="Language / Idioma"><button aria-pressed="true" data-l="en">EN</button><button aria-pressed="false" data-l="es" lang="es">ES</button></div></nav>
 </header>
 
 <main id="main">
 <article class="scene page" aria-labelledby="title">
-  <div class="head mono"><span data-i18n="sc">Scene 04 · NBCUniversal · Univision</span><span>2018 — 2023</span></div>
+  <div class="head mono"><span data-i18n="sc">Project 04 · NBCUniversal · Univision</span><span>2018 — 2023</span></div>
+  <span class="strip head-strip" aria-hidden="true" style="--s:linear-gradient(90deg,#D7372B 0% 50%,#682C36 50% 100%)"></span>
   <h1 class="title" id="title" data-i18n="t">Leading broadcast promotion</h1>
 
-  <div class="frame" style="aspect-ratio:16/9;background:#000">
+  <div class="frame duo" style="aspect-ratio:16/9;background:#000">
     <video controls preload="none" playsinline aria-labelledby="hero-cap" poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_5,w_1600,q_80/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.jpg" style="object-fit:contain">
       <source src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/04_AVS_POP_DIRECTOR_S_CUT_ypbgh0.mp4" type="video/mp4">
     </video>
@@ -88,22 +86,25 @@
     <figure class="full">
       <div class="mono" style="border:1px solid var(--line-2);padding:16px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px">
         <span style="color:var(--dim)" data-i18n="libc">Promos, campaigns and social video</span>
-        <a href="https://jsebacevedo.myportfolio.com/video" style="color:var(--paper);border-bottom:1px solid var(--amber);padding-bottom:3px" data-i18n="lib">See the full video library ↗</a>
+        <a href="video.html" style="color:var(--ink);border-bottom:1px solid var(--amber);padding-bottom:3px" data-i18n="lib">See the full video library →</a>
       </div>
     </figure>
   </section>
 </article>
 
-<a class="next" href="march.html"><div><span class="mono" data-i18n="next">Next scene</span><span class="title" data-i18n="nt">A brand for public work</span></div><span class="mono">05 →</span></a>
+<a class="next" href="march.html"><div><span class="mono" data-i18n="next">Next project</span><span class="title" data-i18n="nt">A brand for public work</span></div><span class="mono">05 →</span></a>
 </main>
 
 <footer class="mini-credits mono"><span>© 2026 Sebastian Acevedo · Colorado</span><a href="mailto:jseb.acevedo@gmail.com">jseb.acevedo@gmail.com</a></footer>
 
 <script>
   window.ES = {
+    nvideo: 'Video',
+    'label:navl': 'Navegación principal',
+    nwork: 'Trabajo', nabout: 'Sobre mí',
     _title: 'Liderar la promoción en televisión — Sebastian Acevedo',
     skip: 'Ir al contenido', contact: 'Contacto',
-    sc: 'Escena 04 · NBCUniversal · Univision',
+    sc: 'Proyecto 04 · NBCUniversal · Univision',
     t: 'Liderar la promoción en televisión',
     v0: 'AVS Pop — Corte del director · Audio en español',
     v0d: '. Video promocional: jugadores del Avalanche levantan la Stanley Cup y los aficionados llenan el centro de Denver en el desfile de campeones de 2022.',
@@ -131,10 +132,11 @@
     v3d: '. Video promocional: un balón solo en una calle residencial vacía, parte de un mensaje de vacunación sobre extrañar el fútbol en compañía.',
     v4: 'Presentación de talento — Stephanie · Audio en español',
     v4d: '. Video promocional: una reportera de Telemundo Denver habla a cámara en un set iluminado, intercalado con su trabajo en la calle.',
-    lib: 'Ver la videoteca completa ↗', libc: 'Promos, campañas y video para redes',
-    next: 'Siguiente escena', nt: 'Una marca para el trabajo público'
+    lib: 'Ver la videoteca completa →', libc: 'Promos, campañas y video para redes',
+    next: 'Siguiente proyecto', nt: 'Una marca para el trabajo público'
   };
 </script>
 <script src="assets/js/film.js"></script>
+<script src="assets/js/oxblood.js"></script>
 </body>
 </html>

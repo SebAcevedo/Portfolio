@@ -5,26 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Somos Lafayette — Sebastian Acevedo</title>
 <meta name="description" content="Somos Lafayette: the City of Lafayette's bilingual outreach identity. Sebastian Acevedo created the concept, directed the launch film and designed the identity.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/film.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/oxblood.css">
 </head>
 <body>
-<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
-<header class="bar solid">
-  <a class="rec mono" href="index.html"><i aria-hidden="true"></i><span>S. Acevedo</span></a>
-  <nav class="mono" aria-label="Scenes"><a href="lafayette.html"><span class="n">01 </span>Lafayette</a><a href="somos.html" aria-current="page"><span class="n">02 </span>Somos</a><a href="engage.html"><span class="n">03 </span>Engage</a><a href="broadcast.html"><span class="n">04 </span>Broadcast</a><a href="march.html"><span class="n">05 </span>March</a><a href="index.html#end" data-i18n="contact">Contact</a></nav>
-  <div class="lang mono" role="group" aria-label="Language / Idioma"><button aria-pressed="true" data-l="en">EN</button><button aria-pressed="false" data-l="es" lang="es">ES</button></div>
+<header class="site-header shell">
+  <a class="wordmark" href="index.html" aria-label="Sebastian Acevedo, home">Sebastian Acevedo</a>
+  <nav class="site-nav" aria-label="Main navigation" data-i18n-label="navl"><a href="index.html#work" data-i18n="nwork" aria-current="true">Work</a><a href="video.html" data-i18n="nvideo">Video</a><a href="index.html#about" data-i18n="nabout">About</a><a href="index.html#contact" data-i18n="contact">Contact</a><div class="lang" role="group" aria-label="Language / Idioma"><button aria-pressed="true" data-l="en">EN</button><button aria-pressed="false" data-l="es" lang="es">ES</button></div></nav>
 </header>
 
 <main id="main">
 <article class="scene page" aria-labelledby="title">
-  <div class="head mono"><span data-i18n="sc">Scene 02 · Somos Lafayette</span><span>2024</span></div>
+  <div class="head mono"><span data-i18n="sc">Project 02 · Somos Lafayette</span><span>2024</span></div>
+  <span class="strip head-strip" aria-hidden="true" style="--s:linear-gradient(90deg,#ACD97A 0% 50%,#08579A 50% 100%)"></span>
   <h1 class="title" id="title" data-i18n="t">We are Lafayette</h1>
 
-  <div class="frame" style="aspect-ratio:16/9">
+  <div class="frame duo" style="aspect-ratio:16/9">
     <video controls preload="none" playsinline style="object-fit:contain" poster="https://res.cloudinary.com/ddkmi47mi/video/upload/so_13.5,w_1600,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg" aria-labelledby="vlabel">
       <source src="https://res.cloudinary.com/ddkmi47mi/video/upload/q_auto/00_Somos_Lafayette_launch_video_Eng_pvdgsi.mp4" type="video/mp4">
     </video>
@@ -67,7 +65,7 @@
       <figcaption class="mono" data-i18n="c2">The festival at night</figcaption>
     </figure>
     <figure class="">
-      <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/c_crop,g_north,y_0.15,h_0.66,w_1.0/so_20.5,w_1400,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg" loading="lazy" style="aspect-ratio:16/10" data-i18n-alt="g3" alt="A wall mural of two bright, colorful masked figures with the words "El cielo y la tierra"">
+      <img src="https://res.cloudinary.com/ddkmi47mi/video/upload/c_crop,g_north,y_0.15,h_0.66,w_1.0/so_20.5,w_1400,q_80/00_Somos_Lafayette_launch_video_Eng_pvdgsi.jpg" loading="lazy" style="aspect-ratio:16/10" data-i18n-alt="g3" alt="A wall mural of two bright, colorful masked figures with the words &quot;El cielo y la tierra&quot;">
       <figcaption class="mono" data-i18n="c3">A local mural</figcaption>
     </figure>
     <figure class="third">
@@ -88,15 +86,18 @@
     </figure>
   </div>
 </article>
-<a class="next" href="engage.html"><div><span class="mono" data-i18n="next">Next scene</span><span class="title" data-i18n="nt">Finish the sentence</span></div><span class="mono">03 →</span></a>
+<a class="next" href="engage.html"><div><span class="mono" data-i18n="next">Next project</span><span class="title" data-i18n="nt">Finish the sentence</span></div><span class="mono">03 →</span></a>
 </main>
 <footer class="mini-credits mono"><span>© 2026 Sebastian Acevedo · Colorado</span><a href="mailto:jseb.acevedo@gmail.com">jseb.acevedo@gmail.com</a></footer>
 
 <script>
   window.ES = {
+    nvideo: 'Video',
+    'label:navl': 'Navegación principal',
+    nwork: 'Trabajo', nabout: 'Sobre mí',
     _title: 'Somos Lafayette — Sebastian Acevedo',
     skip: 'Ir al contenido', contact: 'Contacto',
-    sc: 'Escena 02 · Somos Lafayette', t: 'Somos Lafayette',
+    sc: 'Proyecto 02 · Somos Lafayette', t: 'Somos Lafayette',
     burn: 'Somos Lafayette — video de lanzamiento · subtítulos en inglés',
     h_brief: 'El encargo',
     brief: 'La Ciudad de Lafayette quería ampliar su alcance entre los residentes hispanohablantes. Necesitaba un nombre, una imagen y una historia que esta comunidad reconociera como propios.',
@@ -105,7 +106,7 @@
     h_dec: 'Las decisiones',
     d1: '<b>Los residentes cuentan la historia.</b> El video de lanzamiento está hecho con residentes hablando con sus propias palabras: "Somos un acento, una melodía." "Somos la conexión entre generaciones." Cierra con una sola frase: "Somos Lafayette."',
     d2: '<b>Mostrar la Lafayette de todos los días.</b> Entre las voces, el video recorre los lugares que la gente comparte: un festival, un mural, la piscina, un huerto comunitario, arte con tiza en la calle.',
-    d3: '<b>Un nombre en español para toda la ciudad.</b> El logo pone "Somos" detrás de Lafayette en azul, y el video lleva subtítulos en inglés, así que la identidad le habla a los dos idiomas.',
+    d3: '<b>Un nombre en español para toda la ciudad.</b> El logo pone "Somos" detrás de Lafayette en azul, y el video lleva subtítulos en inglés, así que la identidad habla en los dos idiomas.',
     d4: '<b>Llevarla adonde está la gente.</b> La identidad salió de la pantalla y llegó a eventos comunitarios.',
     d5: '<b>Parte del sistema de marca de la Ciudad.</b> Somos Lafayette vive dentro del <a class="more-link" style="margin:0;padding:0" href="lafayette.html">Lafayette Brand Hub</a> como submarca, junto a la identidad propia de la Ciudad.',
     h_out: 'Resultado',
@@ -119,9 +120,10 @@
     'alt:g5': 'Una mujer riega un huerto comunitario con una manguera en un día soleado', c5: 'En el huerto comunitario',
     'alt:g6': 'Una niña acostada en el pavimento junto a un gran dibujo de tiza', c6: 'Arte con tiza en la calle',
     'alt:g7': 'Cierre: la palabra SOMOS en letras verdes delineadas detrás de Lafayette en azul', c7: 'El logo de Somos Lafayette',
-    next: 'Siguiente escena', nt: 'Completa la frase'
+    next: 'Siguiente proyecto', nt: 'Completa la frase'
   };
 </script>
 <script src="assets/js/film.js"></script>
+<script src="assets/js/oxblood.js"></script>
 </body>
 </html>

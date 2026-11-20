@@ -54,7 +54,7 @@
   const pauseBtn = document.querySelector('.open .pause');
   const STILL_MS = 3400;
   const motionMQ = matchMedia('(prefers-reduced-motion: reduce)');
-  let paused = motionMQ.matches, started = false;
+  let paused = motionMQ.matches, started = false, fails = 0; // two blocked plays in a row → stop and keep the still
   let n = 0, cur = 0, token = 0, timer = null, media = null, stillLeft = STILL_MS, stillAt = 0;
   const pad2 = x => String(x).padStart(2, '0');
   const isES = () => document.documentElement.lang === 'es';
@@ -81,9 +81,9 @@
     if (s.v) {
       const v = document.createElement('video');
       v.muted = true; v.playsInline = true; v.preload = 'auto'; v.src = s.v;
-      v.onplaying = reveal; v.onended = done; v.onerror = done;
+      v.onplaying = () => { fails = 0; reveal(); }; v.onended = done; v.onerror = done;
       media = v; layer.appendChild(v);
-      const p = v.play(); if (p) p.catch(() => { if (live()) timer = setTimeout(done, 1500); });
+      const p = v.play(); if (p) p.catch(() => { if (!live()) return; if (++fails >= 2) { setPaused(true); return; } timer = setTimeout(done, 1500); });
     } else {
       const i = new Image(); i.alt = ''; i.style.objectPosition = s.pos || 'center';
       i.onload = () => { if (!live()) return; reveal(); stillLeft = STILL_MS; stillAt = Date.now(); timer = setTimeout(done, stillLeft); };
@@ -118,6 +118,8 @@
     document.addEventListener('langchange', label);
     motionMQ.addEventListener && motionMQ.addEventListener('change', e => { if (e.matches) setPaused(true); });
     addEventListener('pagehide', stopMedia);
+    // Back/forward cache: the page comes back with its video removed, so start the slide again (unless paused).
+    addEventListener('pageshow', e => { if (e.persisted && !paused) { media = null; show(); } });
   }
 
   /* ── Running timecode (home) ── */
